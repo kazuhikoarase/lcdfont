@@ -10,9 +10,15 @@
 <script>
 $(function() {
   $('BODY').css('overflow', 'hidden').css('background-color', '#000000').
-    append(matrixDigitalRain({ message: 'hesssssssssssllo', getSize : function() {
-      return { width : $(window).width(), height : $(window).height() };
-    } }).css('position', 'absolute').
+    append(matrixDigitalRain({
+      message: 'welcome to the real world',
+      getSize : function() {
+        return {
+          width : $(window).width(),
+          height : $(window).height()
+        };
+      }
+    }).css('position', 'absolute').
     css('left', '0px').css('top', '0px') );
 })
 </script>
