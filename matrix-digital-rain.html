@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<script type="text/javascript" 
+  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="lcdfont.js"></script>
+<script src="matrix-digital-rain.js"></script>
+<script>
+$(function() {
+  $('BODY').css('overflow', 'hidden').css('background-color', '#000000').
+    append(matrixDigitalRain({ message: 'hesssssssssssllo', getSize : function() {
+      return { width : $(window).width(), height : $(window).height() };
+    } }).css('position', 'absolute').
+    css('left', '0px').css('top', '0px') );
+})
+</script>
+</head>
+<body>
+</body>
+</html>
