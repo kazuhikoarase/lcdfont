@@ -31,8 +31,16 @@ var matrixDigitalRain = function() {
       maxDropsPerStep = Math.max(1, ~~(maxDrops * 5 / height) );
     };
 
+    var drawDrop = function(c, x, y) {
+      ctx.save();
+      ctx.transform(-1, 0, 0, 1, x + w, y);
+      drawFont(ctx, c, scale);
+      ctx.restore();
+    };
+
     var $cv = $('<canvas></canvas>');
     var ctx = $cv[0].getContext('2d');
+
     var width = 0;
     var height = 0;
     var maxDrops = 0;
@@ -44,16 +52,9 @@ var matrixDigitalRain = function() {
     var w = 8 * scale;
     var h = 10 * scale;
 
-    var drawDrop = function(c, x, y) {
-      ctx.save();
-      ctx.transform(-1, 0, 0, 1, x + w, y);
-      drawFont(ctx, c, scale);
-      ctx.restore();
-    };
-
     var borns = {};
 
-    var step = function(now) {
+    var doStep = function(now) {
 
       // darker
       ctx.fillStyle = 'rgba(0,0,0,0.05)';
@@ -117,7 +118,7 @@ var matrixDigitalRain = function() {
 
       if (now - time < 1000) {
         while (time < now) {
-          step(time);
+          doStep(time);
           time += 100;
         }
       } else {
@@ -127,6 +128,7 @@ var matrixDigitalRain = function() {
       window.requestAnimationFrame(render);
     };
     window.requestAnimationFrame(render);
+
     return $cv;
   };
 
@@ -136,21 +138,21 @@ var matrixDigitalRain = function() {
     var w = 5;
     var h = 7;
 
-    var dark = function(x, y) { return (d[y] >> x) & 1; };
+    var isDark = function(x, y) { return (d[y] >> x) & 1; };
     var undark = function(x, y) { d[y] &= ~(1 << x); };
 
     for (var y = 0; y < h; y += 1) {
       for (var x = 0; x < w; x += 1) {
-        if (dark(x, y) ) {
+        if (isDark(x, y) ) {
           var cw = s;
           var ch = s;
-          if (x + 1 < w && dark(x + 1, y) ) {
-            for (var i = 1; dark(x + i, y); i += 1) {
+          if (x + 1 < w && isDark(x + 1, y) ) {
+            for (var i = 1; isDark(x + i, y); i += 1) {
               undark(x + i, y);
               cw += s;
             }
-          } else if (y + 1 < w && dark(x, y + 1) ) {
-            for (var i = 1; dark(x, y + i); i += 1) {
+          } else if (y + 1 < w && isDark(x, y + 1) ) {
+            for (var i = 1; isDark(x, y + i); i += 1) {
               undark(x, y + i);
               ch += s;
             }
