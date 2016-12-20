@@ -75,7 +75,7 @@ var matrixDigitalRain = function() {
       while (drops.length > 0) {
 
         var drop = drops.shift();
-        var c = allChars[~~(Math.random() * allChars.length)];
+        var c = allKana[~~(Math.random() * allKana.length)];
 
         if (typeof drop.msgIndex != 'number' &&
             opts.message && Math.random() < opts.messageRate) {
@@ -163,16 +163,23 @@ var matrixDigitalRain = function() {
     }
   };
 
-  var allChars = function() {
-    var allChars = [];
+  var allAscii = function() {
+    var allAscii = [];
     for (var i = 0; i < 95; i += 1) {
-      allChars.push(String.fromCharCode(i + ' '.charCodeAt(0) ) );
+      allAscii.push(String.fromCharCode(i + ' '.charCodeAt(0) ) );
     }
-    for (var i = 0; i < 63; i += 1) {
-      allChars.push(String.fromCharCode(i + '｡'.charCodeAt(0) ) );
-    }
-    return allChars;
+    return allAscii;
   }();
+
+  var allKana = function() {
+    var allKana = [];
+    for (var i = 0; i < 63; i += 1) {
+      allKana.push(String.fromCharCode(i + '｡'.charCodeAt(0) ) );
+    }
+    return allKana;
+  }();
+
+  var allChars = [].concat(allAscii).concat(allKana);
 
   return createWorld;
 }();
